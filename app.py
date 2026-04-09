@@ -149,6 +149,18 @@ html, body, [class*="css"] {
     color: var(--white) !important;
     border-bottom: 3px solid var(--red) !important;
 }
+.stButton > button {
+    background: var(--red) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 3px !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+}
+.stButton > button:hover { background: var(--red-light) !important; 
+}
+
 </style>
 """, unsafe_allow_html=True)
 
