@@ -999,8 +999,9 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    uploaded = sidebar(pd.DataFrame(SAMPLE_DATA))
-    df = get_df(uploaded)
+    uploaded_file = st.sidebar.file_uploader("Drag .csv or .xlsx file here", type=["csv","xlsx"])
+    df = get_df(uploaded_file)
+    sidebar(df)
 
     if uploaded:
         st.markdown('<div class="success-box">✔ Schedule file loaded — KPIs refreshed from uploaded data.</div>',
