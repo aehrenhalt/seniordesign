@@ -13,7 +13,7 @@ import json, os, io
 
 # ─── PAGE CONFIG ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="BrewOps Command",
+    page_title="American Airlines Command",
     page_icon="🇺🇸",
     layout="wide",
     initial_sidebar_state="expanded",
