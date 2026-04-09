@@ -160,6 +160,28 @@ html, body, [class*="css"] {
 }
 .stButton > button:hover { background: var(--red-light) !important; 
 }
+/* ── Targets the 'Upload' text inside the uploader ── */
+[data-testid="stFileUploader"] section div div {
+    color: #C0C8D8 !important;
+}
+
+/* ── Targets the '200MB per file' subtext ── */
+[data-testid="stFileUploader"] small {
+    color: #C0C8D8 !important;
+    opacity: 0.8;
+}
+
+/* ── Targets the Radio button labels (Operations/Scheduling View) ── */
+div[data-testid="stSidebar"] .stRadio label p {
+    color: #C0C8D8 !important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+}
+
+/* ── Targets any markdown text in the sidebar ── */
+div[data-testid="stSidebar"] .stMarkdown p {
+    color: #C0C8D8 !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
