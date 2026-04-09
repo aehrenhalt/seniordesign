@@ -177,6 +177,12 @@ div[data-testid="stSidebar"] .stRadio label p {
     font-size: 0.95rem !important;
     font-weight: 400 !important;
 }
+/* ── Form labels ── */
+.stTextInput label, .stTextArea label, .stSelectbox label,
+.stRadio label, [data-testid="stMarkdownContainer"] p {
+    color: var(--silver) !important;
+    font-size: 0.85rem !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
