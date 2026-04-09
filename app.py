@@ -440,7 +440,7 @@ def chart_shift_type_donut(df):
         labels=types.index, values=types.values, hole=0.55,
         marker_colors=["#4472C4","#C8102E","#D4AF37"], textfont_color="white",
     ))
-    fig.update_layout(**PLOTLY_LAYOUT, showlegend=True, legend=dict(orientation="v"))
+    fig.update_layout(**PLOTLY_LAYOUT, legend=dict(orientation="v"))
     return fig
 
 def chart_cost_breakdown(df):
