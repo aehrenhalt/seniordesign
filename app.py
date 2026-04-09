@@ -404,9 +404,13 @@ def get_df(uploaded=None):
     if uploaded is not None:
         try:
             if uploaded.name.endswith(".csv"):
-                return pd.read_csv(uploaded)
+                df = pd.read_csv(uploaded)
             else:
-                return pd.read_excel(uploaded)
+                df = pd.read_excel(uploaded)
+            
+            # Normalize columns: lowercase and replace spaces with underscores
+            df.columns = [c.lower().replace(" ", "_").strip() for c in df.columns]
+            return df
         except Exception as e:
             st.error(f"Could not parse file: {e}")
     return pd.DataFrame(SAMPLE_DATA)
@@ -414,19 +418,67 @@ def get_df(uploaded=None):
 # ─── DERIVED STATS ────────────────────────────────────────────────────────────
 
 def derive(df):
-    total        = len(df)
+    """
+    Validates the dataframe and calculates core KPIs for the dashboard.
+    """
+    # 1. Define required columns
+    required_cols = [
+        "labor_cost", "actual_hc", "required_hc", 
+        "shift_type", "location", "cluster"
+    ]
+    
+    # 2. Validation Check
+    missing = [col for col in required_cols if col not in df.columns]
+    if missing:
+        st.error(f"🚨 **Upload Error:** Missing required columns: `{', '.join(missing)}`.")
+        st.info("Please ensure your CSV/Excel headers match the expected format exactly.")
+        
+        # Display a helpful comparison for the user
+        col_a, col_b = st.columns(2)
+        col_a.write("**Expected Columns:**")
+        col_a.code("\n".join(required_cols))
+        col_b.write("**Found in Upload:**")
+        col_b.code("\n".join(df.columns.tolist()))
+        
+        st.stop() # Halts the app so it doesn't try to run calculations on bad data
+
+    # 3. Calculations (Safely wrapped)
+    total = len(df)
+    
+    # KPIs
     total_cost   = df["labor_cost"].sum()
     met          = (df["actual_hc"] >= df["required_hc"]).sum()
-    adherence    = round(met / total * 100) if total else 0
+    adherence    = round(met / total * 100) if total > 0 else 0
+    
+    # Headcount Deltas
+    # Using .clip(lower=0) ensures we only count the positives for each respective metric
     excess       = (df["actual_hc"] - df["required_hc"]).clip(lower=0).sum()
     unmet        = (df["required_hc"] - df["actual_hc"]).clip(lower=0).sum()
-    avg_cost     = round(total_cost / total) if total else 0
-    ot_pct       = round(df[df["shift_type"]=="OT"]["labor_cost"].sum() / total_cost * 100, 1) if total_cost else 0
+    
+    # Cost Averages
+    avg_cost     = round(total_cost / total) if total > 0 else 0
+    
+    # Overtime Calculation
+    ot_mask      = df["shift_type"] == "OT"
+    ot_cost      = df[ot_mask]["labor_cost"].sum()
+    ot_pct       = round((ot_cost / total_cost) * 100, 1) if total_cost > 0 else 0
+    
+    # Categorical metadata
     locs         = df["location"].unique().tolist()
     clusters     = df["cluster"].unique().tolist()
-    return dict(total=total, total_cost=total_cost, adherence=adherence,
-                excess=int(excess), unmet=int(unmet), avg_cost=avg_cost,
-                ot_pct=ot_pct, locs=locs, clusters=clusters)
+
+    return dict(
+        total=total, 
+        total_cost=total_cost, 
+        adherence=adherence,
+        excess=int(excess), 
+        unmet=int(unmet), 
+        avg_cost=avg_cost,
+        ot_pct=ot_pct, 
+        locs=locs, 
+        clusters=clusters
+    )
+    
 
 # ─── CHART HELPERS ────────────────────────────────────────────────────────────
 
