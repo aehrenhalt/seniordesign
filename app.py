@@ -183,6 +183,23 @@ div[data-testid="stSidebar"] .stMarkdown p {
     color: #C0C8D8 !important;
 }
 
+/* 1. Targets the text specifically inside radio button labels */
+div[data-testid="stSidebar"] .stRadio label p {
+    color: #C0C8D8 !important;
+    font-size: 1rem !important;
+    opacity: 1 !important;
+}
+
+/* 2. Forces any other potential label text in the sidebar to match */
+div[data-testid="stSidebar"] label p {
+    color: #C0C8D8 !important;
+}
+
+/* 3. Targets the 'Operations View' / 'Scheduling View' text directly */
+div[data-testid="stWidgetLabel"] p {
+    color: #C0C8D8 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
