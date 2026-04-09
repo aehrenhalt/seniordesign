@@ -446,16 +446,10 @@ def navy_colors(n):
     return palette[:n]
 
 def chart_demand_vs_capacity(df):
-    locs = df["location"].unique()
-    req  = [df[df.location==l]["required_hc"].sum() for l in locs]
-    act  = [df[df.location==l]["actual_hc"].sum() for l in locs]
-    fig  = go.Figure()
-    fig.add_bar(name="Required HC", x=list(locs), y=req,
-                marker_color="#1E3060", marker_line_color="#4472C4", marker_line_width=1)
-    fig.add_bar(name="Actual HC",   x=list(locs), y=act,
-                marker_color="#C8102E", marker_line_color="#E8193A", marker_line_width=1)
-    fig.update_layout(**PLOTLY_LAYOUT, barmode="group", title="",
-                      legend=dict(orientation="h", y=1.1))
+    # ... 
+    layout_update = PLOTLY_LAYOUT.copy()
+    layout_update.update(barmode="group", title="", legend=dict(orientation="h", y=1.1))
+    fig.update_layout(**layout_update)
     return fig
 
 def chart_heatmap(df):
@@ -512,20 +506,13 @@ def chart_cluster_cost(df):
     return fig
 
 def chart_demand_vs_predicted(df):
-    locs  = df["location"].unique()
-    pred  = [df[df.location==l]["predicted_demand"].sum() for l in locs]
-    sched = [df[df.location==l]["actual_hc"].sum() for l in locs]
-    fig   = go.Figure()
-    fig.add_scatter(name="Predicted Demand", x=list(locs), y=pred,
-                    mode="lines+markers",
-                    line=dict(color="#D4AF37", width=2, dash="dot"),
-                    marker=dict(color="#D4AF37", size=7))
-    fig.add_scatter(name="Scheduled Capacity", x=list(locs), y=sched,
-                    mode="lines+markers",
-                    line=dict(color="#C8102E", width=2),
-                    marker=dict(color="#C8102E", size=7))
-    fig.update_layout(**PLOTLY_LAYOUT, title="",
-                      legend=dict(orientation="h", y=1.1))
+    # ... (previous code)
+    
+    # Merge the title into a copy of the layout to avoid conflicts
+    layout_update = PLOTLY_LAYOUT.copy()
+    layout_update.update(title="", legend=dict(orientation="h", y=1.1))
+    
+    fig.update_layout(**layout_update)
     return fig
 
 def chart_sensitivity(rate=21.0, ot_mult=1.5, hc_delta=0, df=None):
