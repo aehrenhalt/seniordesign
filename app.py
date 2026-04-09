@@ -1,5 +1,5 @@
 """
-BrewOps Command — Operations Intelligence Dashboard
+AA Command — Operations Intelligence Dashboard
 Python / Streamlit  |  USA Theme (Navy & Red)
 """
 
@@ -358,8 +358,8 @@ SUCCESS_LOG = [
     {"name":"schedule_apr03_v1.csv","date":"Apr 3, 2026","score":88,"kpis":"4 / 6 KPIs met","status":"red"},
 ]
 
-ISSUES_FILE = "/tmp/brewops_issues.json"
-FEATURES_FILE = "/tmp/brewops_features.json"
+ISSUES_FILE = "/tmp/AAops_issues.json"
+FEATURES_FILE = "/tmp/AAops_features.json"
 
 DEFAULT_ISSUES = [
     {"id":1,"title":"OT threshold exceeded — Airport cluster","priority":"High","status":"Open",
@@ -953,7 +953,7 @@ def sidebar(df):
         st.markdown("""
         <div style="text-align:center;padding:12px 0 16px 0">
             <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#F0F4FF">
-                🇺🇸 BREWOPS
+                🇺🇸 AAOPS
             </div>
             <div style="font-size:0.65rem;letter-spacing:2px;color:#C0C8D8">COMMAND CENTER</div>
         </div>
@@ -984,7 +984,7 @@ def sidebar(df):
         st.markdown("---")
         st.markdown(f"""
         <div style="font-size:.7rem;color:#C0C8D8;letter-spacing:1px;text-align:center">
-            BREWOPS COMMAND v1.0<br>
+            AAOPS COMMAND v1.0<br>
             <span style="color:#C8102E">●</span> OPERATIONS VIEW ACTIVE
         </div>
         """, unsafe_allow_html=True)
@@ -998,7 +998,7 @@ def main():
     st.markdown("""
     <div class="ops-header">
         <div>
-            <span class="ops-header-title">🇺🇸 BrewOps Command</span>
+            <span class="ops-header-title">🇺🇸 AAOps Command</span>
             <div style="font-size:.75rem;color:#C0C8D8;letter-spacing:1.5px;margin-top:2px">
                 OPERATIONS INTELLIGENCE DASHBOARD
             </div>
