@@ -79,6 +79,20 @@ html, body, [class*="css"] {
     background: var(--navy-mid) !important;
     border-right: 2px solid rgba(200,16,46,0.3);
 }
+[data-testid="stSidebar"] .stRadio label,
+[data-testid="stSidebar"] .stMarkdown p,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    color: var(--white) !important;
+}
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    color: var(--silver) !important;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(200,16,46,0.4);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
 
 .kpi-card {
     background: var(--navy-mid);
